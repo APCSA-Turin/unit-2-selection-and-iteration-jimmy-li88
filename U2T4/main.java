@@ -1,0 +1,16 @@
+package U2T4;
+
+public class main {
+    public static void main(String[] args) {
+        int x = 7;
+        int y = 9;
+
+        if (!(x <= 6 || !(y <= 8))) {
+            System.out.println("first case");
+        } else {
+            System.out.println("second case");
+        }
+
+    }
+
+}
