@@ -2,7 +2,7 @@ package U3T1;
 
 public class PrismRunner {
     public static void main(String[] args) {
-        Prism prism = new Prism(5, 6, 10);
+        Prism prism = new Prism();
 
         System.out.println(prism.dimensions());
 
@@ -41,5 +41,7 @@ public class PrismRunner {
         System.out.println(vol);
 
         System.out.println(surfaceArea);
+
+        
     }
 }

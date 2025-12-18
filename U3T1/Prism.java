@@ -9,6 +9,16 @@ public class Prism {
         this.width = width;
         this.height = height;
     }
+    public Prism (int sideLength){
+        this.length = sideLength;
+        this.width = sideLength;
+        this.height = sideLength;
+    }
+    public Prism() {
+        this.length = (int)(Math.random() * 90) + 10;;
+        this.width = (int)(Math.random() * 90) + 10;;
+        this.height = (int)(Math.random() * 90) + 10;;
+    }
     public String dimensions() {
         return "length: " + length + ", width: " + width + ", height: " + height;
     }
