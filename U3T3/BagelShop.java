@@ -16,11 +16,13 @@ public class BagelShop {
     /** The Bank where the BagelShop has a vendor deposit account */
     private Bank vendorBank;
 
-    /** Creates a new BagelShop
-     @param name  The name of the BagelShop
-     @param inventory  How many bagels in starting inventory
-     @param bagelPrice  How much (in dollars) each bagel costs
-     @param vendorBank  The bank the BagelShop is using for depositing profits
+    /**
+     * Creates a new BagelShop
+     * 
+     * @param name       The name of the BagelShop
+     * @param inventory  How many bagels in starting inventory
+     * @param bagelPrice How much (in dollars) each bagel costs
+     * @param vendorBank The bank the BagelShop is using for depositing profits
      */
     public BagelShop(String name, int inventory, int bagelPrice, Bank vendorBank) {
         profit = 0;
@@ -30,54 +32,73 @@ public class BagelShop {
         this.vendorBank = vendorBank;
     }
 
-    /** First checks to see if the provided cardPIN matches the PIN number of the
-     credit card; if not,do nothing, and immediately return false (purchase was not successful)
-
-     If cardPIN number matches the credit card's PIN, calculate the total price of the purchase
-     (bagel's price x quantity purchased), charge the credit card for that amount, add that
-     amount to the bagel shop's profit, and reduce quantity.  Return true (bagel purchase was successful).
-
-     @param card  The CreditCard used to pay for the bagels
-     @param quantity  How many bagels are being purchased
-     @param cardPIN  The PIN number provided by the customer
-
-     @return  Return true if the purchase was successful, false if the purchase was unsuccessful
+    /**
+     * First checks to see if the provided cardPIN matches the PIN number of the
+     * credit card; if not,do nothing, and immediately return false (purchase was
+     * not successful)
+     * 
+     * If cardPIN number matches the credit card's PIN, calculate the total price of
+     * the purchase
+     * (bagel's price x quantity purchased), charge the credit card for that amount,
+     * add that
+     * amount to the bagel shop's profit, and reduce quantity. Return true (bagel
+     * purchase was successful).
+     * 
+     * @param card     The CreditCard used to pay for the bagels
+     * @param quantity How many bagels are being purchased
+     * @param cardPIN  The PIN number provided by the customer
+     * 
+     * @return Return true if the purchase was successful, false if the purchase was
+     *         unsuccessful
      */
     public boolean payForBagels(CreditCard card, int quantity, String cardPIN) {
-        if (card.checkPIN(cardPIN) != card.checkPIN(cardPIN)){
-            return false; 
-        } else {
-            int total = bagelPrice * quantity; 
-            card.reduceBalance(total);
-            profit = profit + total; 
-            
-        }
+        if (!card.checkPIN(cardPIN)) {
+            return false;
+        } 
+        int total = bagelPrice * quantity;
+        card.reduceBalance(total);
+        profit = profit + total;
+        inventory = inventory - quantity;
 
+        return true;
     }
 
-    /** First checks to see if the provided cardPIN matches the PIN number of the
-     credit card; if not,do nothing, and immediately return false (purchase was not successful)
-
-     If cardPIN number matches the credit card's PIN, calculate the total price of the return
-     (bagel's price x quantity purchased), reduce the balance on the credit card for that amount, reduce
-     the bagel shop's profit by that amount; do NOT add returned bagels back to inventory (yuck!).
-     Return true (the bagel return was successful).
-
-     @param card  The CreditCard used to pay for the bagels
-     @param quantity  How many bagels are being purchasd
-     @param cardPIN  The PIN number provided by the customer
-
-     @return  Return true if the purchase was successful, false if the purchase was unsuccessful
+    /**
+     * First checks to see if the provided cardPIN matches the PIN number of the
+     * credit card; if not,do nothing, and immediately return false (purchase was
+     * not successful)
+     * 
+     * If cardPIN number matches the credit card's PIN, calculate the total price of
+     * the return
+     * (bagel's price x quantity purchased), reduce the balance on the credit card
+     * for that amount, reduce
+     * the bagel shop's profit by that amount; do NOT add returned bagels back to
+     * inventory (yuck!).
+     * Return true (the bagel return was successful).
+     * 
+     * @param card     The CreditCard used to pay for the bagels
+     * @param quantity How many bagels are being purchasd
+     * @param cardPIN  The PIN number provided by the customer
+     * 
+     * @return Return true if the purchase was successful, false if the purchase was
+     *         unsuccessful
      */
     public boolean returnBagels(CreditCard card, int quantity, String cardPIN) {
-        // TO BE IMPLEMENTED
+        if (!card.checkPIN(cardPIN)) {
+            return false;
+        } 
+        int returnTotal = quantity * bagelPrice;
+        card.reduceBalance(-1 * returnTotal);
+        return true; 
     }
 
-    /** Deposits all current profits in the vendorBank
-     *  and sets profits back to 0.
+    /**
+     * Deposits all current profits in the vendorBank
+     * and sets profits back to 0.
      */
     public void depositProfits() {
-        // TO BE IMPLEMENTED
+        vendorBank.vendorDeposit(profit); 
+        profit = 0; 
     }
 
     public String shopInfo() {
@@ -88,5 +109,3 @@ public class BagelShop {
         return str;
     }
 }
-
-
