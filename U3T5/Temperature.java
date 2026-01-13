@@ -42,4 +42,5 @@ public class Temperature {
     public String tempInfo(){
         return "High temperature: " + highTemp + " " +  scale + "\n" + "Low temperature: " + lowTemp + " " +  scale; 
     }
+
 }
